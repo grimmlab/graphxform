@@ -52,7 +52,7 @@ class PredictorWorker:
                 objs = np.where(
                     constraint_value > np.exp(4),
                     np.exp(ln_y_DMBA_solv) / np.exp(ln_y_TMB_solv),
-                    np.NINF
+                    -np.inf
                 )
         elif self.config.objective_type == "IBA":
             ln_y_IPA_solv = self.predict_IDAC(l_solvent=feasible_molecules,
@@ -61,7 +61,7 @@ class PredictorWorker:
                 objs = np.where(
                     constraint_value > np.exp(4),
                     1. / np.exp(ln_y_IPA_solv),
-                    np.NINF
+                    -np.inf
                 )
         else:
             raise ValueError("Objective type unknown")
@@ -237,7 +237,7 @@ class MoleculeObjectiveEvaluator:
             ]
             future_objs = ray.get(future_objs)
             objs = np.concatenate(future_objs)
-        all_objs = np.array([np.NINF] * len(molecule_designs))
+        all_objs = np.array([-np.inf] * len(molecule_designs))
         all_objs[feasible_idcs] = objs
 
         return all_objs

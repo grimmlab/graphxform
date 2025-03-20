@@ -210,7 +210,7 @@ class MoleculeDesign(BaseTrajectory):
         by `current_action_mask`, and returns normalized log probabilities.
         """
         mask = self.current_action_mask
-        logits[mask] = np.NINF
+        logits[mask] = -np.inf
         with np.errstate(divide='ignore'):
             log_probs = np.log(softmax(logits))
         return log_probs
@@ -505,7 +505,7 @@ class MoleculeDesign(BaseTrajectory):
             mask = np.zeros_like(mol.bonds).astype(float)
             mask = np.pad(
                 mask, [(0, max_num_atoms - num_atoms[i]), (0, max_num_atoms - num_atoms[i])],
-                mode="constant", constant_values=np.NINF
+                mode="constant", constant_values=-np.inf
             )
             np.fill_diagonal(mask, 0)  # let padded tokens attend to themselves
             additive_padding_masks.append(mask)
