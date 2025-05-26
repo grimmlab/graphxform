@@ -132,7 +132,8 @@ dmypy.json
 .idea
 test.py
 results
-data
 mlruns
 tryout.py
 configs
+data/*/*.txt
+data/*/*.smiles
