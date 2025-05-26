@@ -49,15 +49,9 @@ for datatype in datatypes:
     Allow everything in the config
     """
     config.max_num_atoms = max_num_atoms
-    config.max_allowed_oxygen = None
-    config.max_allowed_nitrogen = None
-    config.min_ratio_c = None  # minimum ratio of C atoms to all atoms
-    config.disallow_oxygen_bonding = False
-    config.disallow_nitrogen_nitrogen_single_bond = False
-    config.disallow_rings = False
-    config.disallow_rings_larger_than = -1
 
     dont_match = []
+    errored_out = []
     full_len = len(molecules)
     i = 0
     while len(molecules):
@@ -69,7 +63,11 @@ for datatype in datatypes:
         smiles_to_process = [smiles]
 
         for s in smiles_to_process:
-            molecule_design = MoleculeDesign.from_smiles(config, s, do_finish=True, compare_smiles=False)
+            try:
+                molecule_design = MoleculeDesign.from_smiles(config, s, do_finish=True, compare_smiles=False)
+            except AssertionError as e:
+                errored_out.append(s)
+                continue
             if Chem.CanonSmiles(molecule_design.smiles_string) != Chem.CanonSmiles(smiles):
                 dont_match.append(Chem.CanonSmiles(smiles))
             instance = dict(
@@ -82,6 +80,7 @@ for datatype in datatypes:
             molecule_designs.append(instance)
 
     print("Generated molecules didnt match with source SMILES in cases: ", len(dont_match))
+    print("Molecule design errored out: ", len(errored_out))
     print(f"Generation took {time.perf_counter() - start_time} seconds.")
 
     with open(destination_path, "wb") as f:
