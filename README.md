@@ -40,13 +40,14 @@ The pickled molecules are saved in `./data/chembl/pretrain_sequences/chembl_{tra
 In `pretrain.py`, you can specify pretrain-specific options directly at the entrypoint to adjust to your hardware, i.e.:
 ```python
 if __name__ == '__main__':
-    pretrain_train_dataset = "./data/pretrain_data.pickle"  # Path to the pretraining dataset
+    pretrain_train_dataset = "./data/chembl/pretrain_sequences/chembl_train.pickle"
+    pretrain_val_dataset = "./data/chembl/pretrain_sequences/chembl_valid.pickle"
     pretrain_num_epochs = 1000   # For how many epochs to train
     batch_size = 512  # Minibatch size
     num_batches_per_epoch = 3000   # Number of minibatches per epoch.
     batch_size_validation = 512  # Batch size during validation
     training_device = "cuda:0"  # Device on which to train. Set to "cpu" if no CUDA available.
-    num_dataloader_workers = 30  # Number of dataloader workers for creating batches for training
+    num_dataloader_workers = 10  # Number of dataloader workers for creating batches for training
     load_checkpoint_from_path = None   # Path to checkpoint if training should be continued from existing weights.
 ```
 4. The terminal output will show under which subdirectory (named after timestamp) in `./results` the script will save the model checkpoints.

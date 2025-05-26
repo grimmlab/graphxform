@@ -98,16 +98,13 @@ if __name__ == '__main__':
     batch_size = 512
     num_batches_per_epoch = 3000
     batch_size_validation = 512
+    training_device = "cuda:0"  # Device on which to train.
+    num_dataloader_workers = 10  # Number of dataloader workers for creating batches for training
     load_checkpoint_from_path = None
 
     print(">> Pretraining Molecule Design")
 
     parser = argparse.ArgumentParser(description='Experiment')
-    parser.add_argument('--debug', help="debug flag to turn off server logging", action="store_true")
-    parser.add_argument('--run-name', type=str, help="give a descriptive run name so we can keep track of results",
-                        default="Default run")
-    parser.add_argument('--exp-name', type=str, help="MLflow Experiment name to group run into",
-                        default="Default experiment")
     parser.add_argument('--config', help="Path to optional config relative to main.py")
     args = parser.parse_args()
 
@@ -118,17 +115,10 @@ if __name__ == '__main__':
     config = MoleculeConfig()
     print(f"Results path: {config.results_path}")
     config.max_num_atoms = None
-    config.allow_nitrogen = True
-    config.allow_positive_charged_nitrogen = False  # Set this to True, if the dataset contains [NHx+]
-    config.max_allowed_oxygen = None
-    config.max_allowed_nitrogen = None
-    config.min_ratio_c = None  # minimum ratio of C atoms to all atoms
-    config.disallow_oxygen_bonding = False
-    config.disallow_nitrogen_nitrogen_single_bond = False
-    config.disallow_rings = False
-    config.disallow_rings_larger_than = -1
+    config.training_device = training_device
+    config.num_dataloader_workers = num_dataloader_workers
 
-    logger = Logger(args, config.results_path, config.log_to_file, config.log_to_mlflow, config.mlflow_server_uri)
+    logger = Logger(args, config.results_path, config.log_to_file)
     logger.log_hyperparams(config)
     # Fix random number generator seed for better reproducibility
     np.random.seed(config.seed)
