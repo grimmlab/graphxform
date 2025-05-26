@@ -49,7 +49,6 @@ for datatype in datatypes:
     Allow everything in the config
     """
     config.max_num_atoms = max_num_atoms
-    config.allow_nitrogen = True
     config.max_allowed_oxygen = None
     config.max_allowed_nitrogen = None
     config.min_ratio_c = None  # minimum ratio of C atoms to all atoms
