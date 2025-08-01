@@ -137,3 +137,4 @@ tryout.py
 configs
 data/*/*.txt
 data/*/*.smiles
+data/*/*.pt

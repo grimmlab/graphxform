@@ -27,6 +27,14 @@ For the drug design tasks, [guacamol](https://github.com/BenevolentAI/guacamol/t
 
 ## Pretraining
 
+You can pretrain youself or use the provided pretrained checkpoint.
+
+### Pretrained checkpoint download
+
+Download the pretrained checkpoint [here](https://syncandshare.lrz.de/getlink/fiVTnDvhUcftEfV7PJVbii/).
+
+### Pretrain yourself
+
 To pretrain with the settings in the paper, do the following: 
 
 1. Download the file `chembl_35_chemreps.txt.gz` from this this link: [Download File](https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/releases/chembl_35/chembl_35_chemreps.txt.gz)
