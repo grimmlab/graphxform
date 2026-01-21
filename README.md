@@ -31,7 +31,7 @@ You can pretrain youself or use the provided pretrained checkpoint.
 
 ### Pretrained checkpoint download
 
-Download the pretrained checkpoint [here](https://syncandshare.lrz.de/getlink/fiJs7ZHuCFsVskeoab5aZg/graphxform_pretrained.zip).
+Download the pretrained checkpoint [here](https://syncandshare.lrz.de/dl/fiJs7ZHuCFsVskeoab5aZg/graphxform_pretrained.zip).
 
 ### Pretrain yourself
 
