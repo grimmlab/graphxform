@@ -213,5 +213,5 @@ if __name__ == '__main__':
 
             if validation_metrics["val_full_loss"] < checkpoint["pretrain_best_validation_loss"]:
                 print(">> Got new best model.")
-                checkpoint["pretrain_best_validation_loss"] = generated_loggable_dict["full_loss"]
+                checkpoint["pretrain_best_validation_loss"] = generated_loggable_dict["val_full_loss"]
                 save_checkpoint(checkpoint, "best_model.pt", config)
